@@ -1,26 +1,23 @@
-
 module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
- 
-          
         uglify: {
             options: {
                 banner: '/*! Dòng này chèn vào đầu file <%= grunt.template.today("yyyy-mm-dd") %> */\n'
             },
-    
+
             build: {
                 files: {
                     'build/hello.min.js' : ['tmp/all_back.js']
                 }
-            }, 
+            },
         },
         concat: {
           build: {
             files: {
                 'tmp/all.js' : ['src/hello.js', 'src/ab.js']
-            }  
-          }  
+            }
+          }
         },
 
         babel: {
@@ -32,14 +29,14 @@ module.exports = function(grunt) {
                   'tmp/all_back.js': 'tmp/all.js'
                 }
               }
-          
+
         },
 
         jshint: {
             options: {
                 '-W015': true,
                 "esversion": 6
-              },        
+              },
             build: {
               src: ['tmp/all.js']
             },
@@ -48,23 +45,26 @@ module.exports = function(grunt) {
        clean: {
         build: {
             src: ['tmp/*']
-          }, 
-       }   
+          },
+       }
 
     });
 
+  //Nạp các plugin
   grunt.loadNpmTasks('grunt-babel');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-clean');
 
+
+  //Thực hiện 5 tác vụ mặc định
   grunt.registerTask('default', [
-                                 'concat:build', 
-                                 'jshint:build', 
-                                 'babel:build', 
+                                 'concat:build',
+                                 'jshint:build',
+                                 'babel:build',
                                  'uglify:build',
-                                 'clean'   
+                                 'clean'
                                 ]);
- 
+
 }
