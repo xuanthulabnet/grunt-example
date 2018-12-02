@@ -1,31 +1,31 @@
-
 module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+
         watch: {
             src: {
                 files: ['src/*.js'],
                 tasks: ['default'],
               },
         },
-          
+
         uglify: {
             options: {
-                banner: '/*! Dòng này chèn vào đầu file <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+                banner: '/*! <%= grunt.template.today("yyyy-mm-dd") %> */\n'
             },
-    
+
             build: {
                 files: {
                     'build/hello.min.js' : ['tmp/all_back.js']
                 }
-            }, 
+            },
         },
         concat: {
           build: {
             files: {
                 'tmp/all.js' : ['src/hello.js', 'src/ab.js']
-            }  
-          }  
+            }
+          }
         },
 
         babel: {
@@ -37,14 +37,14 @@ module.exports = function(grunt) {
                   'tmp/all_back.js': 'tmp/all.js'
                 }
               }
-          
+
         },
 
         jshint: {
             options: {
                 '-W015': true,
                 "esversion": 6
-              },        
+              },
             build: {
               src: ['tmp/all.js']
             },
@@ -53,8 +53,8 @@ module.exports = function(grunt) {
        clean: {
         build: {
             src: ['tmp/*']
-          }, 
-       }   
+          },
+       }
 
     });
 
@@ -66,15 +66,15 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
 
   grunt.registerTask('runwatch', [
-    'watch'   
+    'watch'
    ]);
-   
+
   grunt.registerTask('default', [
-                                 'concat:build', 
-                                 'jshint:build', 
-                                 'babel:build', 
+                                 'concat:build',
+                                 'jshint:build',
+                                 'babel:build',
                                  'uglify:build',
-                                 'clean'   
+                                 'clean'
                                 ]);
- 
+
 }
