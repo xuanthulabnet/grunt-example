@@ -12,6 +12,7 @@ module.exports = function(grunt) {
                 }
             },
     
+            
             debug: {
                 files: {
                     'debug/hello_debug.min.js' : ['src/hello.js']
