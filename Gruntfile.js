@@ -1,70 +1,30 @@
-
 module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
- 
-          
         uglify: {
             options: {
-                banner: '/*! Dòng này chèn vào đầu file <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+                banner: '/*! Xuanthulab <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+            },
+
+            build: {
+                files: {
+                    'build/hello.min.js' : ['src/hello.js']
+                }
             },
     
-            build: {
+            debug: {
                 files: {
-                    'build/hello.min.js' : ['tmp/all_back.js']
+                    'debug/hello_debug.min.js' : ['src/hello.js']
                 }
-            }, 
-        },
-        concat: {
-          build: {
-            files: {
-                'tmp/all.js' : ['src/hello.js', 'src/ab.js']
-            }  
-          }  
-        },
-
-        babel: {
-            options: {
-                presets: ['@babel/preset-env']
-              },
-              build: {
-                files: {
-                  'tmp/all_back.js': 'tmp/all.js'
-                }
-              }
-          
-        },
-
-        jshint: {
-            options: {
-                '-W015': true,
-                "esversion": 6
-              },        
-            build: {
-              src: ['tmp/all.js']
-            },
-          },
-
-       clean: {
-        build: {
-            src: ['tmp/*']
-          }, 
-       }   
-
+            }
+        }
     });
 
-  grunt.loadNpmTasks('grunt-babel');
-  grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.registerTask('default', ['uglify']);                //grunt
 
-  grunt.registerTask('default', [
-                                 'concat:build', 
-                                 'jshint:build', 
-                                 'babel:build', 
-                                 'uglify:build',
-                                 'clean'   
-                                ]);
- 
+
+  grunt.registerTask('debug', ['uglify:debug']);            //grunt debug
+  grunt.registerTask('release', ['uglify:build']);          //grunt release
+
 }
